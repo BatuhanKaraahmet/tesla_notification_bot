@@ -27,15 +27,21 @@ def send_telegram_message(message):
     requests.post(url, data=data)
 
 def get_vehicle_ids():
+    print("Tesla API'ye istek gönderiliyor...")
     try:
         response = requests.get(TESLA_API_URL, headers=headers, params={'query': str(params)})
+        print(f"Tesla API yanıt kodu: {response.status_code}")
         if response.status_code == 200:
             data = response.json()
             vehicles = data.get('results', [])
+            print(f"API'den dönen araç sayısı: {len(vehicles)}")
             return set(v.get("VIN") for v in vehicles if v.get("VIN"))
+        else:
+            print(f"API'den beklenmeyen yanıt: {response.text}")
     except Exception as e:
         print(f"Hata: {e}")
     return set()
+
 
 def main():
     print("TELEGRAM_TOKEN:", TELEGRAM_TOKEN)
