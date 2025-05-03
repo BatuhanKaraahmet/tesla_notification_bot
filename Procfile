@@ -1,1 +1,1 @@
-worker: python tesla_bot.py
+worker: python tesla_scraper_bot.py
