@@ -31,16 +31,23 @@ def get_vehicle_ids():
     try:
         response = requests.get(TESLA_API_URL, headers=headers, params={'query': str(params)})
         print(f"Tesla API yanıt kodu: {response.status_code}")
-        if response.status_code == 200:
+        
+        try:
             data = response.json()
-            vehicles = data.get('results', [])
-            print(f"API'den dönen araç sayısı: {len(vehicles)}")
-            return set(v.get("VIN") for v in vehicles if v.get("VIN"))
-        else:
-            print(f"API'den beklenmeyen yanıt: {response.text}")
+            print("JSON çözümleme başarılı.")
+        except Exception as json_error:
+            print(f"JSON ayrıştırma hatası: {json_error}")
+            print("Ham cevap:", response.text)
+            return set()
+        
+        vehicles = data.get('results', [])
+        print(f"API'den dönen araç sayısı: {len(vehicles)}")
+        return set(v.get("VIN") for v in vehicles if v.get("VIN"))
+
     except Exception as e:
-        print(f"Hata: {e}")
+        print(f"Genel hata: {e}")
     return set()
+
 
 
 def main():
