@@ -29,7 +29,8 @@ def send_telegram_message(message):
 def get_vehicle_ids():
     print("Tesla API'ye istek gönderiliyor...")
     try:
-        response = requests.post(TESLA_API_URL, headers=headers, json=params)
+        response = requests.post(TESLA_API_URL, headers=headers, json=params, timeout=10)
+        print("Yanıt alındı.")
         print(f"Tesla API yanıt kodu: {response.status_code}")
         
         try:
@@ -47,6 +48,7 @@ def get_vehicle_ids():
     except Exception as e:
         print(f"Genel hata: {e}")
     return set()
+
 
 
 
