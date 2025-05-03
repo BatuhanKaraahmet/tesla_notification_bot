@@ -44,6 +44,7 @@ def main():
     known = get_vehicle_vins()
     print(f"İlk bilinen araçlar: {known}")
     send_telegram_message(f"Başladı. {len(known)} araç var.")
+    send_telegram_message("SelamınAleyküm")
     while True:
         print("1 dakika bekleniyor...")
         time.sleep(60)
