@@ -38,6 +38,8 @@ def get_vehicle_ids():
     return set()
 
 def main():
+    print("TELEGRAM_TOKEN:", TELEGRAM_TOKEN)
+    print("TELEGRAM_CHAT_ID:", TELEGRAM_CHAT_ID)
     print("Bot başlatıldı...")
     known = get_vehicle_ids()
     print(f"İlk bilinen araçlar: {known}")
