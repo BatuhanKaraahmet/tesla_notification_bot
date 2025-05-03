@@ -22,14 +22,21 @@ params = {
 headers = {'User-Agent': 'Mozilla/5.0'}
 
 def send_telegram_message(message):
-    url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage'
-    data = {'chat_id': TELEGRAM_CHAT_ID, 'text': message}
-    requests.post(url, data=data)
+    print(f"Telegram'a mesaj gönderiliyor: {message}")
+    try:
+        url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage'
+        data = {'chat_id': TELEGRAM_CHAT_ID, 'text': message}
+        response = requests.post(url, data=data)
+        print(f"Telegram yanıt kodu: {response.status_code}")
+        print(f"Telegram yanıtı: {response.text}")
+    except Exception as e:
+        print(f"Telegram gönderim hatası: {e}")
+
 
 def get_vehicle_ids():
     print("Tesla API'ye istek gönderiliyor...")
     try:
-        response = requests.post(TESLA_API_URL, headers=headers, json=params, timeout=10)
+        response = requests.post(TESLA_API_URL, headers=headers, json=params, timeout=20)
         print("Yanıt alındı.")
         print(f"Tesla API yanıt kodu: {response.status_code}")
         
